@@ -36,10 +36,11 @@ let object1 = {
     // name: "Dave",
     age: 49,
     identifier: 12,
-    collection: ["1sac23", "1fasdf", 342]
+    collection: ["1sac23", "1fasdf", 342],
 };
 const greetPerson = (testObject) => {
-    if (testObject.name) { //To Check if name is provided since it is set to optional
+    if (testObject.name) {
+        //To Check if name is provided since it is set to optional
         return `Greetings ${testObject.name.toUpperCase()}, Welcome`;
     }
     return "Hello!";
@@ -66,3 +67,50 @@ var Grade1;
     Grade1[Grade1["A"] = 6] = "A";
 })(Grade1 || (Grade1 = {}));
 console.log(Grade1.A);
+// Literal types
+let userName;
+userName = "Dave";
+function add(a, b) {
+    return a + b;
+}
+function logMsg(msg) {
+    console.log(msg);
+}
+let subtract = (c, d) => {
+    return c - d;
+};
+let mutiply = (e, f) => {
+    return e * f;
+};
+logMsg(mutiply(4, 76));
+// optional function parameters
+const addAll = (a, b, c) => {
+    if (c) {
+        return a + b + c;
+    }
+    return a + b;
+};
+// Default function paramters
+const sumAll = (a = 35, b, c = 2) => {
+    return a + b + c;
+};
+logMsg(sumAll(undefined, 4));
+// Rest parameteres
+const total = (a, ...nums) => {
+    return a + nums.reduce((prev, curr) => prev + curr);
+};
+logMsg(total(43, 7, 3, 1, 6));
+// Never type - Only use when throwing an error or to handle undefined
+const errMsg = (msg) => {
+    throw new Error(msg);
+};
+const isNumber = (a) => {
+    return typeof a === "number" ? true : false;
+};
+const numbeOrString = (value) => {
+    if (typeof value === "string")
+        return "string";
+    if (isNumber(value))
+        return "number";
+    return errMsg("Undefined type");
+};
