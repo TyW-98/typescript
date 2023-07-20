@@ -165,3 +165,32 @@ const numbeOrString = (value: number | string): string => {
   if (isNumber(value)) return "number";
   return errMsg("Undefined type");
 };
+
+// Assertions
+type One = string;
+type Two = string | number;
+type Three = "abc";
+
+let a: One = "abc";
+let b = a as Two; // Convert type a (string) to type Two (string | number) <-- Less specific
+let c = a as Three; // Convert type a (string) to type Three ("abc") <-- More specific
+
+const addOrConcat = (
+  a: number,
+  b: number,
+  c: "add" | "concat"
+): number | string => {
+  if (c === "add") {
+    return a + b;
+  }
+  return "" + a + b;
+};
+
+let testAddOrConcat: string = addOrConcat(4, 3, "concat") as string;
+
+// To use assertion to convert number to string (Avoid using it)
+341 as unknown as string;
+
+// Assertion with DOM
+const img = document.querySelector("img")!; // Non null assertion
+const myImg = document.getElementById("img") as HTMLImageElement;

@@ -114,3 +114,18 @@ const numbeOrString = (value) => {
         return "number";
     return errMsg("Undefined type");
 };
+let a = "abc";
+let b = a; // Convert type a (string) to type Two (string | number) <-- Less specific
+let c = a; // Convert type a (string) to type Three ("abc") <-- More specific
+const addOrConcat = (a, b, c) => {
+    if (c === "add") {
+        return a + b;
+    }
+    return "" + a + b;
+};
+let testAddOrConcat = addOrConcat(4, 3, "concat");
+// To use assertion to convert number to string (Avoid using it)
+341;
+// Assertion with DOM
+const img = document.querySelector("img"); // Non null assertion
+const myImg = document.getElementById("img");
