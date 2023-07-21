@@ -129,3 +129,86 @@ let testAddOrConcat = addOrConcat(4, 3, "concat");
 // Assertion with DOM
 const img = document.querySelector("img"); // Non null assertion
 const myImg = document.getElementById("img");
+// Classes
+class Student {
+    constructor(name, age, country, language = "TypeScript") {
+        this.name = name;
+        this.age = age;
+        this.country = country;
+        this.language = language;
+        this.name = name;
+        this.age = age;
+        this.country = country;
+        this.language = language;
+    }
+    getAge() {
+        return this.age;
+    }
+}
+const Dave = new Student("Dave", 32, "England", "Python");
+console.log(Dave.getAge());
+class School extends Student {
+    constructor(schoolName, name, age, country) {
+        super(name, age, country);
+        this.schoolName = schoolName;
+        this.schoolName = schoolName;
+    }
+    getLanguage() {
+        return `${this.name} uses ${this.language}`;
+    }
+}
+const Jacob = new School("webDev", "Jacob", 24, "Singapore");
+console.log(Jacob.getLanguage());
+class SoftwareDeveloper {
+    constructor(name, language, experience) {
+        this.name = name;
+        this.language = language;
+        this.experience = experience;
+        this.name = name;
+        this.language = language;
+        this.experience = experience;
+    }
+    project(projectName) {
+        return `${this.name} is working on ${projectName}`;
+    }
+}
+const David = new SoftwareDeveloper("David", "C++", 5);
+console.log(David.project("AI"));
+// The static keyword means the count doesn't apply to a single instance of the class but apply to the class directly. Therefore it is keeping track of the count across all isntance of the class. Can be use to track number of instance of the class.
+class counter {
+    static getCount() {
+        return counter.count;
+    }
+    constructor(name) {
+        this.name = name;
+        this.name = name;
+        this.id = ++counter.count; // <-- ++ on the left will make sure id starts with 1 first. If ++ on the right id will start with 0.
+    }
+}
+counter.count = 0;
+const Michael = new counter("Michael");
+const John = new counter("John");
+console.log(counter.count);
+console.log(Michael.id);
+// Getter and Setters
+class Bands {
+    constructor() {
+        this.dataState = [];
+    }
+    get data() {
+        return this.dataState;
+    }
+    set data(value) {
+        if (Array.isArray(value) && value.every((el) => typeof el === "string")) {
+            this.dataState = value;
+            return;
+        }
+        else
+            throw new Error("Params not an array of strings");
+    }
+}
+const rockBand = new Bands();
+rockBand.data = ["Band 1", "Band 2"]; // Setter
+console.log(rockBand.data); // Getter
+rockBand.data = [...rockBand.data, "Rocky"]; // Setter
+console.log(rockBand.data); //Getter

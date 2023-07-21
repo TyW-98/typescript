@@ -194,3 +194,120 @@ let testAddOrConcat: string = addOrConcat(4, 3, "concat") as string;
 // Assertion with DOM
 const img = document.querySelector("img")!; // Non null assertion
 const myImg = document.getElementById("img") as HTMLImageElement;
+
+// Classes
+class Student {
+  constructor(
+    public readonly name: string,
+    private age: number,
+    public readonly country: string,
+    protected language: "TypeScript" | "Python" | "JavaScript" = "TypeScript"
+  ) {
+    this.name = name;
+    this.age = age;
+    this.country = country;
+    this.language = language;
+  }
+
+  public getAge(): number {
+    return this.age;
+  }
+}
+
+const Dave = new Student("Dave", 32, "England", "Python");
+console.log(Dave.getAge());
+
+class School extends Student {
+  constructor(
+    public schoolName: string,
+    name: string,
+    age: number,
+    country: string
+  ) {
+    super(name, age, country);
+    this.schoolName = schoolName;
+  }
+
+  public getLanguage() {
+    return `${this.name} uses ${this.language}`;
+  }
+}
+
+const Jacob = new School("webDev", "Jacob", 24, "Singapore");
+console.log(Jacob.getLanguage());
+// console.log(Jacob.language) <-- Protected so only can be accessed within the Student class or School sub class
+// console.log(Jacob.age) <-- Private so can only be accessed within the Student class
+
+interface Developer {
+  name: string;
+  language: "TypeScript" | "Python" | "JavaScript" | "C++";
+  experience: number;
+  project(projectName: string): string;
+}
+
+class SoftwareDeveloper implements Developer {
+  constructor(
+    public readonly name: string,
+    public language: "TypeScript" | "Python" | "JavaScript" | "C++",
+    public experience: number
+  ) {
+    this.name = name;
+    this.language = language;
+    this.experience = experience;
+  }
+
+  public project(projectName: string) {
+    return `${this.name} is working on ${projectName}`;
+  }
+}
+
+const David = new SoftwareDeveloper("David", "C++", 5);
+console.log(David.project("AI"));
+
+// The static keyword means the count doesn't apply to a single instance of the class but apply to the class directly. Therefore it is keeping track of the count across all isntance of the class. Can be use to track number of instance of the class.
+class counter {
+  static count: number = 0;
+
+  static getCount(): number {
+    return counter.count;
+  }
+
+  public id: number;
+
+  constructor(public name: string) {
+    this.name = name;
+    this.id = ++counter.count; // <-- ++ on the left will make sure id starts with 1 first. If ++ on the right id will start with 0.
+  }
+}
+
+const Michael = new counter("Michael");
+const John = new counter("John");
+
+console.log(counter.count);
+console.log(Michael.id);
+
+// Getter and Setters
+class Bands {
+  private dataState: string[];
+
+  constructor() {
+    this.dataState = [];
+  }
+
+  public get data(): string[] {
+    return this.dataState;
+  }
+
+  public set data(value: string[]) {
+    if (Array.isArray(value) && value.every((el) => typeof el === "string")) {
+      this.dataState = value;
+      return;
+    } else throw new Error("Params not an array of strings");
+  }
+}
+
+const rockBand = new Bands();
+rockBand.data = ["Band 1", "Band 2"]; // Setter
+console.log(rockBand.data); // Getter
+rockBand.data = [...rockBand.data, "Rocky"]; // Setter
+console.log(rockBand.data); //Getter
