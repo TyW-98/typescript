@@ -212,3 +212,33 @@ rockBand.data = ["Band 1", "Band 2"]; // Setter
 console.log(rockBand.data); // Getter
 rockBand.data = [...rockBand.data, "Rocky"]; // Setter
 console.log(rockBand.data); //Getter
+const stockLevel = {
+    case: 234,
+    laptop: 34,
+    computer: 31,
+};
+const todayStock = (currentStock) => {
+    let totalStock = 0;
+    for (const product in currentStock) {
+        totalStock += currentStock[product];
+    }
+    return totalStock;
+};
+console.log(todayStock(stockLevel));
+const pupil1 = {
+    name: "Daivd",
+    GPA: 3.5,
+    classes: ["Computing", "Mathematics"],
+};
+// keyof create specific type for the key in pupil1 using the Pupil interface. (For example the name in pupil1 will have a type name)
+for (const key in pupil1) {
+    console.log(`${key} : ${pupil1[key]}`);
+}
+// Can also referce using its own type
+Object.keys(pupil1).map((key) => {
+    console.log(pupil1[key]);
+});
+function logPupilKey(pupil, key) {
+    console.log(`${key} : ${pupil[key]}`);
+}
+logPupilKey(pupil1, "name");

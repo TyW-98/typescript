@@ -311,3 +311,71 @@ rockBand.data = ["Band 1", "Band 2"]; // Setter
 console.log(rockBand.data); // Getter
 rockBand.data = [...rockBand.data, "Rocky"]; // Setter
 console.log(rockBand.data); //Getter
+
+// Index Signatures
+
+// interface Stock {
+//   case: number,
+//   lptop: number,
+//   computer: number
+// }
+
+// Image if the key and value is not known at this instance then can create interface object using the following
+// interface Stock {
+//   [key: string]: number;
+// }
+
+// This would allow to set predefined keys while at the same time allowing users to add keys in the future
+// In this example, case, laptop and computer is always required and any additional keys can be added later.
+interface Stock {
+  [key: string]: number;
+  case: number;
+  laptop: number;
+  computer: number;
+}
+
+const stockLevel: Stock = {
+  case: 234,
+  laptop: 34,
+  computer: 31,
+};
+
+const todayStock = (currentStock: Stock): number => {
+  let totalStock = 0;
+
+  for (const product in currentStock) {
+    totalStock += currentStock[product];
+  }
+
+  return totalStock;
+};
+
+console.log(todayStock(stockLevel));
+
+interface Pupil {
+  name: string;
+  GPA: number;
+  classes?: string[];
+}
+
+const pupil1: Pupil = {
+  name: "Daivd",
+  GPA: 3.5,
+  classes: ["Computing", "Mathematics"],
+};
+
+// keyof create specific type for the key in pupil1 using the Pupil interface. (For example the name in pupil1 will have a type name)
+for (const key in pupil1) {
+  console.log(`${key} : ${pupil1[key as keyof Pupil]}`);
+}
+
+// Can also referce using its own type
+Object.keys(pupil1).map((key) => {
+  console.log(pupil1[key as keyof typeof pupil1]);
+});
+
+function logPupilKey(pupil: Pupil, key: keyof Pupil): void {
+  console.log(`${key} : ${pupil[key]}`);
+}
+
+logPupilKey(pupil1, "name");
