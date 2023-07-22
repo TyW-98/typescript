@@ -242,3 +242,101 @@ function logPupilKey(pupil, key) {
     console.log(`${key} : ${pupil[key]}`);
 }
 logPupilKey(pupil1, "name");
+// Generics Function
+// Instead of specifing which type the argument and output will be. T is being used to indicate the type therefore the argument and output will have the same type.
+const echoString = (msg) => {
+    return msg;
+};
+// Check if obj passed in is an object. It is dynamically changing the argument type dependent on the input.
+const isType = (obj) => {
+    return typeof obj === "object" && !Array.isArray(obj) && obj !== null;
+};
+// function to check if its an object or array with elements within.
+const isTrue = (arg) => {
+    // Check if its an empty array
+    if (Array.isArray(arg) && !arg.length) {
+        return { value: arg, is: false };
+    }
+    else if (isType(arg) && !Object.keys(arg).length) {
+        // Check if its an empty object
+        return { value: arg, is: false };
+    }
+    return { value: arg, is: !!arg };
+};
+const studentNumber = (studentNumber) => {
+    return studentNumber;
+};
+console.log(studentNumber({ id: 53, name: "David" }));
+const fetchUserData = (users, // T has an array type
+key // Type of Key associated with each key
+) => {
+    //Returns a type of T with the type of K key
+    return users.map((user) => {
+        return user[key];
+    });
+};
+const testUser = [
+    {
+        id: 1,
+        name: "Leanne Graham",
+        username: "Bret",
+        email: "Sincere@april.biz",
+        address: {
+            street: "Kulas Light",
+            suite: "Apt. 556",
+            city: "Gwenborough",
+            zipcode: "92998-3874",
+            geo: {
+                lat: "-37.3159",
+                lng: "81.1496",
+            },
+        },
+        phone: "1-770-736-8031 x56442",
+        website: "hildegard.org",
+        company: {
+            name: "Romaguera-Crona",
+            catchPhrase: "Multi-layered client-server neural-net",
+            bs: "harness real-time e-markets",
+        },
+    },
+    {
+        id: 2,
+        name: "Ervin Howell",
+        username: "Antonette",
+        email: "Shanna@melissa.tv",
+        address: {
+            street: "Victor Plains",
+            suite: "Suite 879",
+            city: "Wisokyburgh",
+            zipcode: "90566-7771",
+            geo: {
+                lat: "-43.9509",
+                lng: "-34.4618",
+            },
+        },
+        phone: "010-692-6593 x09125",
+        website: "anastasia.net",
+        company: {
+            name: "Deckow-Crist",
+            catchPhrase: "Proactive didactic contingency",
+            bs: "synergize scalable supply-chains",
+        },
+    },
+];
+console.log(fetchUserData(testUser, "name"));
+// Generic Classes
+class StateObject {
+    constructor(value) {
+        this.data = value;
+    }
+    get state() {
+        return this.data;
+    }
+    set state(value) {
+        this.data = value;
+    }
+}
+const store = new StateObject([341]);
+console.log(store.state);
+store.state = ["swdd", 2141, false];
+console.log(store.state);
