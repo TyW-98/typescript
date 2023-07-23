@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 let myName = "Alex";
 let age;
 let isLoading;
@@ -340,3 +349,59 @@ const store = new StateObject([341]);
 console.log(store.state);
 store.state = ["swdd", 2141, false];
 console.log(store.state);
+const updateAssignment = (assign, propsToUpdate) => {
+    return Object.assign(Object.assign({}, assign), propsToUpdate);
+};
+let assign1 = {
+    studentID: "S35sd13",
+    title: "Final Project",
+    grade: 0,
+};
+assign1 = updateAssignment(assign1, { grade: 59 });
+console.log(assign1);
+// Required and ReadOnly
+// This will make all the properties in assignment interface to be required even the optional verified property
+const recordAssignment = (assign) => {
+    return assign;
+};
+// Makes properties within verifiedAssignment objects to be read only. Therefore values cannot be changed afterwards.
+const verifiedAssignment = Object.assign(Object.assign({}, assign1), { verified: true });
+const finalGrade = {
+    Alex: "B",
+    Sarah: "D",
+};
+const finalClassification = {
+    David: "Merit",
+    Joe: "Distinction",
+};
+const newCoursework = {
+    studentID: "sd3212",
+    title: "Mid Term 2",
+};
+const todaysCoursework = {
+    studentID: "sd24125",
+    title: "Mid Term 3",
+};
+// ReturnType
+// type newMovieRating = { title: string; rating: number };
+const createNewMovie = (title, rating) => {
+    return { title, rating };
+};
+const transformers = ["Transformers", 80];
+const transformersRating = createNewMovie(...transformers);
+console.log(transformersRating);
+function fetchUser() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const data = yield fetch("https://jsonplaceholder.typicode.com/users")
+            .then((res) => {
+            return res.json();
+        })
+            .catch((err) => {
+            if (err instanceof Error) {
+                console.log(err.message);
+            }
+        });
+        return data;
+    });
+}
+fetchUser().then((users) => console.log(users));

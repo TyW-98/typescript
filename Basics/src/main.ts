@@ -500,3 +500,141 @@ const store = new StateObject<(string | number | boolean)[]>([341]);
 console.log(store.state);
 store.state = ["swdd", 2141, false];
 console.log(store.state);
+
+// Utilities Type
+// Partials
+
+interface Assignment {
+  studentID: string;
+  title: string;
+  grade: number;
+  verified?: boolean;
+}
+
+const updateAssignment = (
+  assign: Assignment,
+  propsToUpdate: Partial<Assignment>
+): Assignment => {
+  return { ...assign, ...propsToUpdate };
+};
+
+let assign1: Assignment = {
+  studentID: "S35sd13",
+  title: "Final Project",
+  grade: 0,
+};
+
+assign1 = updateAssignment(assign1, { grade: 59 });
+console.log(assign1);
+
+// Required and ReadOnly
+// This will make all the properties in assignment interface to be required even the optional verified property
+const recordAssignment = (assign: Required<Assignment>): Assignment => {
+  return assign;
+};
+
+// Makes properties within verifiedAssignment objects to be read only. Therefore values cannot be changed afterwards.
+const verifiedAssignment: Readonly<Assignment> = { ...assign1, verified: true };
+
+// Record (type variation)
+// When using Record all keys type must be included.
+type Students = "Alex" | "Sarah";
+type Classification = "A" | "B" | "C" | "D" | "U";
+
+const finalGrade: Record<Students, Classification> = {
+  Alex: "B",
+  Sarah: "D",
+};
+
+// Record (interface variation)
+interface currentStudent {
+  name: "David" | "Joe";
+}
+
+interface Classifications {
+  grade: "Distinction" | "Merit" | "Pass" | "Ungraded";
+}
+
+const finalClassification: Record<
+  currentStudent["name"],
+  Classifications["grade"]
+> = {
+  David: "Merit",
+  Joe: "Distinction",
+};
+
+// Pick and Omit
+// Pick which properties to use from the Assignment type. By adding partial, it makes the properties which has been picked optional.
+type AssignmentResult = Partial<
+  Pick<Assignment, "studentID" | "title" | "grade">
+>;
+
+const newCoursework: AssignmentResult = {
+  studentID: "sd3212",
+  title: "Mid Term 2",
+};
+
+// Opposite of pick. Choosing what property which we do not want.
+type AssignmentPreview = Omit<Assignment, "grade" | "verified">;
+
+const todaysCoursework: AssignmentPreview = {
+  studentID: "sd24125",
+  title: "Mid Term 3",
+};
+
+// Exclude and Extract (Only works for string type)
+// updatedGrade will not have "U" within since it is excluded
+type updatedGrade = Exclude<Classification, "U">;
+
+// Only want A and B grade and the rest to not be included.
+type topGrade = Extract<Classifications, "A" | "B">;
+
+// Nonnullable
+// Will only extract elements which are nonnullable
+type testType = "Simon" | "David" | "James" | null | undefined;
+type namesOnly = NonNullable<testType>;
+
+// ReturnType
+// type newMovieRating = { title: string; rating: number };
+
+const createNewMovie = (title: string, rating: number) => {
+  return { title, rating };
+};
+
+// Instead of creating a type before using it in a function, can use ReturnType to create a type after the function which will be dependent on the function output type and change accordingly.
+// Creates an object
+type newMovieRating = ReturnType<typeof createNewMovie>;
+
+// Parameters (Similar to ReturnType)
+// Creates an tuple
+type newMovie = Parameters<typeof createNewMovie>;
+
+const transformers: newMovie = ["Transformers", 80];
+const transformersRating: newMovieRating = createNewMovie(...transformers);
+console.log(transformersRating);
+
+//Awaited to be used with ReturnType of a promise
+interface testUser {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+}
+
+async function fetchUser(): Promise<testUser[]> {
+  const data = await fetch("https://jsonplaceholder.typicode.com/users")
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      if (err instanceof Error) {
+        console.log(err.message);
+      }
+    });
+
+  return data;
+}
+
+type FetchedUserDataType = Awaited<ReturnType<typeof fetchUser>>;
+
+fetchUser().then((users) => console.log(users));
