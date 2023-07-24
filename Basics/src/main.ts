@@ -635,6 +635,7 @@ async function fetchUser(): Promise<testUser[]> {
   return data;
 }
 
+// Get ReturnType of the data fetched.
 type FetchedUserDataType = Awaited<ReturnType<typeof fetchUser>>;
 
 fetchUser().then((users) => console.log(users));
