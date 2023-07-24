@@ -14,11 +14,13 @@ export default class FullListTemplate implements DOMList {
 
   // private constructor(pass in as parameters){Absolutely asigned it}
   private constructor() {
-    this.ul = document.getElementById("listItem") as HTMLUListElement;
+    this.ul = document.getElementById("listItems") as HTMLUListElement;
   }
 
   clear(): void {
-    this.ul.innerHTML = "";
+    if (this.ul) {
+      this.ul.innerHTML = "";
+    }
   }
 
   render(fullList: FullList): void {
@@ -53,7 +55,6 @@ export default class FullListTemplate implements DOMList {
         fullList.removeItem(itemObj.id);
         this.render(fullList);
       });
-
       this.ul.append(li);
     });
   }
