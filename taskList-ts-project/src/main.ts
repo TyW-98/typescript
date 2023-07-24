@@ -12,7 +12,7 @@ const initApp = (): void => {
   inputForm.addEventListener("submit", (event: SubmitEvent): void => {
     event.preventDefault();
     const inputField = document.getElementById("newItem") as HTMLInputElement;
-    const newItemText = inputField.value.trim();
+    const newItemText: string = inputField.value.trim();
 
     if (!newItemText) {
       return;

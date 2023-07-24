@@ -10,7 +10,7 @@ interface List {
 }
 
 export default class FullList implements List {
-  // Create one instance of FullList
+  // Create only one instance of FullList across the whole application
   static instance: FullList = new FullList();
 
   // Private keyword to ensure that constructor can only be called within the class itself and not from outside.
@@ -31,8 +31,19 @@ export default class FullList implements List {
       return;
     }
 
+    // Pass in an array of object of the types: _id, _item, _checked
     const parsedList: { _id: string; _item: string; _checked: boolean }[] =
       JSON.parse(storedList);
+
+    // Create new item for each object in array and add them them to local storage.
+    parsedList.map((itemObj) => {
+      const newListItem = new ListItem(
+        itemObj._id,
+        itemObj._item,
+        itemObj._checked
+      );
+      FullList.instance.addItem(newListItem);
+    });
   }
 
   save(): void {
