@@ -1,4 +1,4 @@
-import { createContext, useReducer, useMemo, useState } from "react";
+import { createContext, useReducer, useMemo } from "react";
 
 export type CartItemType = {
   id: string;
@@ -105,48 +105,51 @@ const useCartContext = (initCartState: CartStateType) => {
   }, 0);
 
   // Format it to include currency automatically
-  const totalPrice = new Intl.NumberFormat("en-GB", {
+  const totalPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "GBP",
-    maximumFractionDigits: 2,
   }).format(
     state.cart.reduce((prevCost, cartItem) => {
-      return prevCost + (cartItem.quantity * cartItem.price);
+      return prevCost + cartItem.quantity * cartItem.price;
     }, 0)
   );
 
   // Ordering products in cart ascendingly.
-  const cart = state.cart.sort((a,b) => {
-    const productA = Number(a.id.slice(-4))
-    const productB = Number(b.id.slice(-4))
+  const cart = state.cart.sort((a, b) => {
+    const productA = Number(a.id.slice(-4));
+    const productB = Number(b.id.slice(-4));
 
-    return productA - productB // Comparison function. If negative, productA will be first, if postive, productB will be first.
-  })
+    return productA - productB; // Comparison function. If negative, productA will be first, if postive, productB will be first.
+  });
 
-  return {dispatch, CART_ACTION, totalPrice, totalProducts, cart}
+  return { dispatch, CART_ACTION, totalPrice, totalProducts, cart };
 };
 
-export type UseCartContextType = ReturnType<typeof useCartContext>
+export type UseCartContextType = ReturnType<typeof useCartContext>;
 
 // Initial state of cart context
 const initCartContextState: UseCartContextType = {
-    dispatch: () => {},
-    CART_ACTION: Cart_Action_Type,
-    totalPrice: "",
-    totalProducts: 0,
-    cart: []
-}
+  dispatch: () => {},
+  CART_ACTION: Cart_Action_Type,
+  totalPrice: "",
+  totalProducts: 0,
+  cart: [],
+};
 
-export const CartContext = createContext<UseCartContextType>(initCartContextState)
+export const CartContext =
+  createContext<UseCartContextType>(initCartContextState);
 
-type ChildrenType = {children ?: React.ReactElement | React.ReactElement[]}
+type ChildrenType = { children?: React.ReactElement | React.ReactElement[] };
 
-export const CartProvider({children}:ChildrenType): React.ReactElement => {
+export const CartProvider = ({
+  children,
+}: ChildrenType): React.ReactElement => {
+  return (
+    // Use useCartContext on initial state to create starting context
+    <CartContext.Provider value={useCartContext(initCartState)}>
+      {children}
+    </CartContext.Provider>
+  );
+};
 
-    return (
-        // Use useCartContext on initial state to create starting context
-        <CartContext.Provider value={useCartContext(initCartState)}>
-            {children}
-        </CartContext.Provider>
-    )
-}
+export default CartContext;

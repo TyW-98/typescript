@@ -43,6 +43,9 @@ export const ProductsProvider = ({
 }: ChildrenType): React.ReactElement => {
   const [products, setProducts] = useState<ProductType[]>(initProductState);
 
+  // To start local json server command = npx json-server -w data/products.json -p 3500
+  // -w for watch
+  // -p for port
   useEffect(() => {
     const fetchProductsData = async (): Promise<ProductType[]> => {
       const data = await fetch("http://localhost:3500/products")
@@ -50,7 +53,10 @@ export const ProductsProvider = ({
         .catch((err) => {
           if (err instanceof Error) console.log(err.message);
         });
+      return data;
     };
+
+    fetchProductsData().then((products) => setProducts(products));
   }, []);
 
   return (
