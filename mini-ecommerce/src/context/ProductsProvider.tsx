@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export type ProductType = {
   id: string;
@@ -7,23 +7,25 @@ export type ProductType = {
 };
 
 // Initialise starting value of Products
-const initProductState: ProductType[] = [
-  {
-    id: "product0001",
-    name: "Widget",
-    price: 9.99,
-  },
-  {
-    id: "product0002",
-    name: "Premium Widget",
-    price: 39.99,
-  },
-  {
-    id: "product0003",
-    name: "Premium Delux Widget",
-    price: 79.99,
-  },
-];
+// const initProductState: ProductType[] = [
+//   {
+//     id: "product0001",
+//     name: "Widget",
+//     price: 9.99,
+//   },
+//   {
+//     id: "product0002",
+//     name: "Premium Widget",
+//     price: 39.99,
+//   },
+//   {
+//     id: "product0003",
+//     name: "Premium Delux Widget",
+//     price: 79.99,
+//   },
+// ];
+
+const initProductState: ProductType[] = [];
 
 export type UseProductsContextType = { products: ProductType[] };
 
@@ -40,6 +42,16 @@ export const ProductsProvider = ({
   children,
 }: ChildrenType): React.ReactElement => {
   const [products, setProducts] = useState<ProductType[]>(initProductState);
+
+  useEffect(() => {
+    const fetchProductsData = async (): Promise<ProductType[]> => {
+      const data = await fetch("http://localhost:3500/products")
+        .then((res) => res.json())
+        .catch((err) => {
+          if (err instanceof Error) console.log(err.message);
+        });
+    };
+  }, []);
 
   return (
     <ProductsContext.Provider value={{ products }}>
