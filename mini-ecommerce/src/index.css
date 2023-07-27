@@ -8,6 +8,8 @@
   padding: 20px 150px
 }
 
+/* Header Component */
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -40,4 +42,26 @@
   border-radius: 5px;
   margin-top: 10px;
   cursor: pointer;
+}
+
+/* Footer Component */
+footer {
+  border-top: 1px solid black;
+}
+
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5px;
+}
+
+.footer__quantity-info,
+.footer__total-cost {
+  display: block;
+}
+
+.footer__copyright {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 5px;
 }

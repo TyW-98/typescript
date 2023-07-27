@@ -131,7 +131,7 @@ export type UseCartContextType = ReturnType<typeof useCartContext>;
 const initCartContextState: UseCartContextType = {
   dispatch: () => {},
   CART_ACTION: Cart_Action_Type,
-  totalPrice: "",
+  totalPrice: "£0.00",
   totalProducts: 0,
   cart: [],
 };
