@@ -25,7 +25,7 @@ export default function Footer({ viewCart }: Props) {
           </div>
         )}
         <p className={viewCart ? "footer__copyright" : ""}>
-          Shopping Limited © {currentYear}
+          Shopping Limited &copy; {currentYear}
         </p>
       </div>
     </footer>
