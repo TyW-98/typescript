@@ -84,7 +84,7 @@ const reducer = (state: CartStateType, action: CartAction): CartStateType => {
       return { ...state, cart: [...filterCart, updatedItem] };
     }
     case Cart_Action_Type.SUBMIT: {
-      return { ...state, cart: [] };
+      return { ...state, cart: [] }; // Reset items in cart after submitting = purchasing.
     }
     default:
       throw new Error("Unidentified reducer action type");

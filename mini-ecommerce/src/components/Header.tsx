@@ -21,12 +21,20 @@ export default function Header({ viewCart, setViewCart }: Props) {
         <div className="header-container">
           <h1 className="title">TxGears</h1>
           <div className="header-cart">
-            <span className="header__quantity-info">
-              Total Products = {totalProducts}
-            </span>
-            <span className="header__total-cost">
-              Total price = {totalPrice}
-            </span>
+            {!viewCart ? (
+              <>
+                {" "}
+                <span className="header__quantity-info">
+                  Total Products = {totalProducts}
+                </span>
+                <span className="header__total-cost">
+                  Total Price = {totalPrice}
+                </span>
+              </>
+            ) : (
+              <></>
+            )}
+
             <nav className="nav-btn">
               <button
                 className="header__view-cart-btn"
