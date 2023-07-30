@@ -88,8 +88,14 @@
 }
 
 /* Cart Card Component */
-.cart__product-card-container:first-of-type {
-  margin-top: 10px;
+.cart__product-card-container {
+  margin-top: 15px;
+}
+
+.cart__product-card-container {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, 0.3fr);
+  align-items: center;
 }
 
 .cart__product-card-details {
@@ -106,9 +112,15 @@
   font-size: 32px;
 }
 
+.cart__remove-product-btn {
+  width: 50px;
+  padding: 2.5px;
+}
+
 /* Dropdown component */
 .dropdown__container {
   cursor: pointer;
   border-radius: 2.5px;
   padding: 1.5px;
+  width: 75px;
 }

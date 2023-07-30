@@ -28,7 +28,7 @@ export default function DropDownQuantity({
   }
 
   return (
-    <>
+    <div>
       <label htmlFor="quantity">Quantity</label>
       <select
         className="dropdown__container"
@@ -45,6 +45,6 @@ export default function DropDownQuantity({
           );
         })}
       </select>
-    </>
+    </div>
   );
 }

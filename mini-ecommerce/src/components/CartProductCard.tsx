@@ -48,29 +48,26 @@ export default function CartProductCard({
         <h3 className="cart__product-name" aria-label="Product Name">
           {item.name}
         </h3>
-        <h3 className="cart_-product-price" aria-label="Price per item">
-          {numToCurrency(item.price)}
-        </h3>
-        <DropDownQuantity
-          item={item}
-          quantity={item.quantity}
-          dispatch={dispatch}
-          CART_ACTION={CART_ACTION}
-        />
-        <h3
-          className="cart__product-total-cost"
-          aria-label="Product Total Cost"
-        >
-          {numToCurrency(calculateCost)}
-        </h3>
-        <button
-          className="cart__remove-product-btn"
-          aria-label="Remove Product From Cart"
-          onClick={handleRemoveProduct}
-        >
-          ❌
-        </button>
       </div>
+      <h3 className="cart_-product-price" aria-label="Price per item">
+        {numToCurrency(item.price)} per Item
+      </h3>
+      <DropDownQuantity
+        item={item}
+        quantity={item.quantity}
+        dispatch={dispatch}
+        CART_ACTION={CART_ACTION}
+      />
+      <h3 className="cart__product-total-cost" aria-label="Product Total Cost">
+        {numToCurrency(calculateCost)}
+      </h3>
+      <button
+        className="cart__remove-product-btn"
+        aria-label="Remove Product From Cart"
+        onClick={handleRemoveProduct}
+      >
+        ❌
+      </button>
     </div>
   );
 }
